@@ -1,0 +1,12 @@
+# OSX
+#
+.DS_Store
+
+# node.js
+#
+api/node_modules/
+npm-debug.log
+
+# Bundle artifact
+.env*
+
