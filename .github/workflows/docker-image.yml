@@ -24,8 +24,8 @@ jobs:
         password: ${{ secrets.DOCKERHUB_TOKEN }}
 
     - name: 🏗️ Build Docker image
-      run: docker build -t $IMAGE_NAME:latest ./api
+      run: docker build -t $IMAGE_NAME:v1 ./api
 
     - name: 🚀 Push image to Docker Hub
-      run: docker push $IMAGE_NAME:latest
+      run: docker push $IMAGE_NAME:v1
 
