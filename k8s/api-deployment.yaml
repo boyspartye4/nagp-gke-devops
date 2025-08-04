@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: node-api
-        image: yourdockerhubuser/node-api:v1
+        image: printfworld/nagp-gke-devops-api:latest
         ports:
         - containerPort: 3000
         env:

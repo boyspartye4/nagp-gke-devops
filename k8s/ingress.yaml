@@ -3,10 +3,12 @@ kind: Ingress
 metadata:
   name: node-api-ingress
   namespace: prod
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
+  ingressClassName: nginx
   rules:
-  - host: yourapi.example.com
-    http:
+  - http:
       paths:
       - path: /
         pathType: Prefix
@@ -14,4 +16,4 @@ spec:
           service:
             name: node-api-service
             port:
-              number: 3000
+              number: 80
