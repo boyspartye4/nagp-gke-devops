@@ -27,7 +27,17 @@ async function getAllRecords() {
   return rows;
 }
 
+/**
+ * Add a new record to 'items' table
+ * @param {string} name - name of the item
+ */
+async function addRecord(name) {
+  const query = "INSERT INTO items (name) VALUES ($1)";
+  await pool.query(query, [name]);
+}
+
 // Export function(s)
 module.exports = {
   getAllRecords,
+  addRecord,
 };
