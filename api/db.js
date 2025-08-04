@@ -4,7 +4,7 @@
 // Uses environment variables from ConfigMap/Secret
 // ------------------------------
 
-const { Pool } = require('pg');
+const { Pool } = require("pg");
 
 // Create a connection pool
 const pool = new Pool({
@@ -13,13 +13,16 @@ const pool = new Pool({
   password: process.env.DB_PASS,
   database: process.env.DB_NAME,
   port: process.env.DB_PORT,
-  max: 10,              // max number of connections
+  max: 10, // max number of connections
   idleTimeoutMillis: 30000, // idle timeout
 });
 
-// Fetch all records from 'items' table
+/**
+ * Fetch all records from 'items' table
+ * @returns
+ */
 async function getAllRecords() {
-  const query = 'SELECT * FROM items';
+  const query = "SELECT * FROM items";
   const { rows } = await pool.query(query);
   return rows;
 }
