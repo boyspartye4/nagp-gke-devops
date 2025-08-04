@@ -1,0 +1,31 @@
+name: Docker Image Build
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  IMAGE_NAME: ${{ secrets.DOCKERHUB_USERNAME }}/nagp-gke-devops-api
+
+jobs:
+  build-and-push:
+    name: 🐳 Build & Push Docker image
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: 🛎️ Checkout code
+      uses: actions/checkout@v4
+
+    - name: 🔑 Log in to Docker Hub
+      uses: docker/login-action@v3
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+    - name: 🏗️ Build Docker image
+      run: docker build -t $IMAGE_NAME:latest .
+
+    - name: 🚀 Push image to Docker Hub
+      run: docker push $IMAGE_NAME:latest
+
