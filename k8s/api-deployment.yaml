@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: node-api
-        image: printfworld/nagp-gke-devops-api:v5
+        image: printfworld/nagp-gke-devops-api:v6
         ports:
         - containerPort: 3000
         env:

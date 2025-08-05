@@ -158,6 +158,16 @@ Delete everything:
 ```bash
 kubectl delete namespace prod
 
+|                                    Goal |                                  Command |
+| --------------------------------------: | ---------------------------------------: |
+|           Delete pods, svc, deploys, rs |       `kubectl delete all --all -n prod` |
+|                       Delete configmaps | `kubectl delete configmap --all -n prod` |
+|                          Delete secrets |    `kubectl delete secret --all -n prod` |
+|                             Delete PVCs |       `kubectl delete pvc --all -n prod` |
+|                          Delete ingress |   `kubectl delete ingress --all -n prod` |
+| Delete everything by removing namespace |          `kubectl delete namespace prod` |
+
+
 ## 🚀 Deploy on GKE
 ```bash
 kubectl apply -f k8s/
