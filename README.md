@@ -40,7 +40,7 @@ Production-grade multi-tier Kubernetes application:
 | 📂 Code repository | https://github.com/boyspartye4/nagp-gke-devops |
 | 🐙 Docker Hub      | https://hub.docker.com/repository/docker/printfworld/nagp-gke-devops-api/ |
 | 🚀 API endpoint    | http://34.131.233.27/api/records |
-| 📹 Demo video      | [Watch demo](#) |
+| 📹 Demo video      | [Watch demo](https://nagarro-my.sharepoint.com/:v:/p/nitesh_sharma02/EZkO3VI16B1KozRhqH127XoBONPmD1XYSp94_tJ3MgT9IA?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=qFWdse) |
 
 ---
 
@@ -90,19 +90,20 @@ kubectl get all -n prod
 kubectl get ingress -n prod
 ```
 
-## ✅ 5. Test API:
+### ✅ 5. Test API:
 
 curl http://34.131.233.27/api/records
 
 To add one more item in the DB
 curl http://34.131.233.27/api/add?item=newItem
 
-## ✅ Clean up
+### ✅ Clean up
 
 Delete everything:
 
 ```bash
 kubectl delete namespace prod
+```
 ---
 
 ## Future road map
