@@ -14,23 +14,7 @@ Production-grade multi-tier Kubernetes application:
 
 ## 📦 **Project Structure**
 
-├── api/ # Node.js microservice
-│ ├── db.js
-│ ├── index.js
-│ ├── package.json
-│ ├── Dockerfile
-├── k8s/ # All Kubernetes YAML files
-│ ├── namespace.yaml
-│ ├── configmap.yaml
-│ ├── secret.yaml
-│ ├── api-deployment.yaml
-│ ├── api-service.yaml
-│ ├── db-deployment.yaml
-│ ├── db-service.yaml
-│ ├── pvc.yaml
-│ ├── ingress.yaml
-│ └── init-sql-configmap.yaml
-└── README.md
+![Screenshot](./assets/Project_Structure.png)
 
 ---
 
@@ -85,7 +69,7 @@ Also there is a github workflow being created to automate this.
 kubectl apply -f k8s/namespace.yaml
 ```
 
-### ✅ 3. Deploy all Kubernetes resources inside namespace
+### ✅ 3. 🚀 Deploy all Kubernetes resources inside namespace
 
 ```bash
 kubectl apply -f k8s/configmap.yaml -n prod
@@ -110,109 +94,16 @@ kubectl get ingress -n prod
 
 curl http://34.131.233.27/api/records
 
----
+To add one more item in the DB
+curl http://34.131.233.27/api/add?item=newItem
 
-🧩 Architecture Overview
-Node.js API (4 pods) handles external HTTP requests
-API connects to PostgreSQL DB (1 pod) inside cluster
-PVC keeps DB data persistent
-ConfigMap & Secret inject config & credentials
-Ingress exposes API externally; DB remains private
-Namespace my-app logically isolates resources
+## ✅ Clean up
 
-📌 Requirement understanding
-Multi-tier architecture: API + DB
-API exposed externally (Ingress)
-DB must persist data and not be public
-ConfigMap & Secret for DB credentials
-Rolling updates for API
-Pod IPs must not be hardcoded (use services)
-
-📦 Assumptions
-Single table items seeded with 5–10 records
-Using Docker Hub for image registry
-Using GKE for managed Kubernetes
-Domain points to ingress IP
-
-⚙ Justification for resources utilized
-Resource	Why?
-Node.js & Express	Lightweight, fast REST API
-PostgreSQL	Stable production DB
-ConfigMap	Decouple config from code
-Secret	Protect sensitive data
-PVC	Keep DB data across pod restarts
-Ingress	Single external IP, supports SSL
-Namespace my-app	Logical isolation & easier management
-Rolling updates	Zero downtime deployments
-ClusterIP for DB	DB only accessible within cluster
-
-📹 Demo video checklist:
-✅ Deploy all objects
-✅ Call API and see DB data
-✅ Kill API pod → auto-recreate
-✅ Kill DB pod → auto-recreate with old data
-✅ Show running pods, ingress, services, PVC
-
-🧰 Clean up
 Delete everything:
+
 ```bash
 kubectl delete namespace prod
-
-|                                    Goal |                                  Command |
-| --------------------------------------: | ---------------------------------------: |
-|           Delete pods, svc, deploys, rs |       `kubectl delete all --all -n prod` |
-|                       Delete configmaps | `kubectl delete configmap --all -n prod` |
-|                          Delete secrets |    `kubectl delete secret --all -n prod` |
-|                             Delete PVCs |       `kubectl delete pvc --all -n prod` |
-|                          Delete ingress |   `kubectl delete ingress --all -n prod` |
-| Delete everything by removing namespace |          `kubectl delete namespace prod` |
-
-
-## 🚀 Deploy on GKE
-```bash
-kubectl apply -f k8s/
-
-
 ---
 
-## ✅ Step 3: `Documentation.md` skeleton
-
-```markdown
-# 📄 Project Documentation
-
-## ✅ Requirement Understanding
-- Multi-tier architecture on Kubernetes
-- Node.js microservice with PostgreSQL database
-- ConfigMap & Secret for DB config
-- Ingress exposure for API
-
-## 📌 Assumptions
-- Domain points to Ingress IP
-- Docker Hub used for images
-- Initial DB seeded via init.sql
-
-## 🛠️ Solution Overview
-- Node.js API → fetches records from PostgreSQL
-- Rolling updates enabled for API (4 pods)
-- Single DB pod with PVC
-- Exposed externally via Ingress
-
-*(see architecture diagram)*
-
-## 📊 Justification for Resources
-- Node.js for fast API dev
-- PostgreSQL for production reliability
-- ConfigMap keeps configs outside code
-- Secret protects DB password
-- PVC keeps data across redeployments
-- ClusterIP ensures internal-only DB exposure
-
-## 📦 Deliverables
-- Source code repo
-- Docker image
-- Kubernetes YAML files
-- Readme
-- Demo video
-
 ## Future road map
-automate with github helm
+- Automate kubernetes deployment
