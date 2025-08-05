@@ -12,7 +12,7 @@ const app = express();
 
 // Basic health check endpoint
 app.get("/api/health", (req, res) => {
-  res.send("API is healthy 🚀");
+  res.send("API is healthy and putting new changes 🚀");
 });
 
 // GET /api/records - fetch all records from DB
