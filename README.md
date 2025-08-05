@@ -10,6 +10,8 @@ Production-grade multi-tier Kubernetes application:
   - Rolling updates for API
   - Namespace isolation
 
+---
+
 ## 📦 **Project Structure**
 
 ├── api/ # Node.js microservice
@@ -52,8 +54,8 @@ Production-grade multi-tier Kubernetes application:
 | Item               | Link |
 |-------------------:|--:|
 | 📂 Code repository | https://github.com/boyspartye4/nagp-gke-devops |
-| 🐙 Docker Hub      | https://hub.docker.com/r/yourdockerhubuser/node-api |
-| 🚀 API endpoint    | http://yourapi.example.com/api/records |
+| 🐙 Docker Hub      | https://hub.docker.com/repository/docker/printfworld/nagp-gke-devops-api/ |
+| 🚀 API endpoint    | http://34.131.233.27/api/records |
 | 📹 Demo video      | [Watch demo](#) |
 
 ---
@@ -73,22 +75,40 @@ From inside the `api/` folder:
 cd api
 docker build -t yourdockerhubuser/node-api:latest .
 docker push yourdockerhubuser/node-api:latest
+```
+
+Also there is a github workflow being created to automate this.
 
 ### ✅ 2. Create namespace
+
 ```bash
 kubectl apply -f k8s/namespace.yaml
+```
 
 ### ✅ 3. Deploy all Kubernetes resources inside namespace
+
 ```bash
-kubectl apply -f k8s/ --namespace=prod
+kubectl apply -f k8s/configmap.yaml -n prod
+kubectl apply -f k8s/secret.yaml -n prod
+kubectl apply -f k8s/init-sql-configmap.yaml -n prod
+kubectl apply -f k8s/pvc.yaml -n prod
+kubectl apply -f k8s/db-deployment.yaml -n prod
+kubectl apply -f k8s/db-service.yaml -n prod
+kubectl apply -f k8s/api-deployment.yaml -n prod
+kubectl apply -f k8s/api-service.yaml -n prod
+kubectl apply -f k8s/ingress.yaml -n prod
+```
 
 ### ✅ 4. Verify
+
 ```bash
 kubectl get all -n prod
 kubectl get ingress -n prod
+```
 
-Test API:
-curl http://yourapi.example.com/api/records
+## ✅ 5. Test API:
+
+curl http://34.131.233.27/api/records
 
 ---
 
@@ -183,3 +203,6 @@ kubectl apply -f k8s/
 - Kubernetes YAML files
 - Readme
 - Demo video
+
+## Future road map
+automate with github helm
